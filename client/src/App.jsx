@@ -8,11 +8,13 @@ import BuyCredit from "./pages/BuyCredit";
 const App = () => {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/buy" element={<BuyCredit />} />
-      </Routes>
+      <div className="px-4, sm:px-10">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/result" element={<Result />} />
+          <Route path="/buy" element={<BuyCredit />} />
+        </Routes>
+      </div>
     </>
   );
 };

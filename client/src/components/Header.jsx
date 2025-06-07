@@ -1,5 +1,6 @@
-import React from "react";
 import { assets } from "../assets/assets";
+import Steps from "./Steps";
+import Testimonials from "./Testimonials";
 
 const Header = () => {
   return (
@@ -22,7 +23,25 @@ const Header = () => {
         Ganarate Images
         <img className="h-6" src={assets.star_group} />
       </button>
-      <div>{Array(6)}</div>
+      <div className="flex justify-center items-center gap-3 mt-12">
+        {Array(6)
+          .fill("")
+          .map((item, index) => (
+            <img
+              src={index % 2 == 0 ? assets.sample_img_2 : assets.sample_img_1}
+              alt=""
+              key={index}
+              className="w-70 rounded hover:scale-105 transition-all duration-600 cursor-pointer max-sm:w-60"
+            />
+          ))}
+      </div>
+
+      <p>generated images by Imagify</p>
+
+      {/*  */}
+      <Steps />
+
+      <Testimonials />
     </div>
   );
 };

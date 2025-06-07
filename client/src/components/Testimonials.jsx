@@ -2,17 +2,16 @@ import React from "react";
 
 const testimonials = [
   {
-    name: "Aisha Khan",
+    name: "Avani Jain",
     title: "Product Manager",
     feedback:
-      "This platform transformed how we manage our workflow. Great UI and blazing fast!",
+      " Offers a user-friendly interface to create AI-generated images for presentations, social media, and other creative projects.",
     image: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
     name: "Rahul Mehta",
     title: "Software Engineer",
-    feedback:
-      "Super intuitive and well-structured. Customer support is top-notch too!",
+    feedback: "Converts text into eye-catching images.",
     image: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {

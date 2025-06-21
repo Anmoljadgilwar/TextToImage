@@ -1,6 +1,7 @@
 import { assets } from "../assets/assets";
 import Steps from "./Steps";
 import Testimonials from "./Testimonials";
+import GenerateBtn from "./GenerateBtn";
 
 const Header = () => {
   return (
@@ -44,6 +45,7 @@ const Header = () => {
 
         <Steps />
         <Testimonials />
+        <GenerateBtn />
       </div>
     </div>
   );

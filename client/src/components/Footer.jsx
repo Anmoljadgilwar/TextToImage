@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-400 text-white flex items-center justify-center py-4 gap-160 mt-20">
+    <div className="bg-gray-500 text-white flex items-center justify-center py-4 gap-160 mt-20 w-full ">
       <div className="">
         <img src={assets.logo} alt="" width={140} />
         <p>Copyright © 2025 TextToImage | All rights reserved</p>

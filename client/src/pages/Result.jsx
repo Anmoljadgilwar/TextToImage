@@ -7,6 +7,8 @@ const Result = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [input, setInput] = React.useState("");
 
+  const onSubmitHandler = async (e) => {};
+
   return (
     <>
       <form

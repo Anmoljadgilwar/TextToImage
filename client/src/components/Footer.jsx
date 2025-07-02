@@ -9,7 +9,7 @@ const Footer = () => {
         <p>Copyright © 2025 TextToImage | All rights reserved</p>
       </div>
 
-      <div className="flex gap-2.5 text-sm max-sm:inline-table">
+      <div className="flex  gap-2.5 text-sm max-sm:inline-table">
         <img src={assets.facebook_icon} alt="" width={40} />
         <img src={assets.twitter_icon} alt="" width={40} />
         <img src={assets.instagram_icon} alt="" width={40} />

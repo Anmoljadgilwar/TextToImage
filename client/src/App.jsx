@@ -6,12 +6,15 @@ import Result from "./pages/Result";
 import BuyCredit from "./pages/BuyCredit";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
 
 const App = () => {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-teal-100 to-orange-100">
         <Navbar />
+
+        <Login />
 
         <Routes>
           <Route path="/" element={<Home />} />

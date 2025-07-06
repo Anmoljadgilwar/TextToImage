@@ -49,9 +49,11 @@ const Login = () => {
             className="outline-none text-sm"
           />
         </div>
-        <p className="text-sm mt-6 text-blue-600 cursor-pointer text-right">
-          Forgot Password{" "}
-        </p>
+        {state === "Login" && (
+          <p className="text-sm mt-6 text-blue-600 cursor-pointer text-right">
+            Forgot Password{" "}
+          </p>
+        )}
 
         <button className="bg-blue-500 text-white w-full py-2 mt-6 rounded-full">
           {state !== "Login" ? "Create Account" : "Login"}

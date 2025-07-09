@@ -1,11 +1,21 @@
-import React from "react";
+import { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const Login = () => {
-  const [state, setState] = React.useState("Login");
+  const [state, setState] = useState("Login");
+
+  const { setShowLogin } = useContext(AppContext);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="absolute top-0 bottom-0 right-0 left-0 z-12 backdrop-blur-sm flex items-center justify-center bg-black/30 ">
+    <div className="fixed top-0 bottom-0 right-0 left-0 z-10 backdrop-blur-sm flex items-center justify-center bg-black/30 ">
       <form
         action=""
         className="relative bg-white text-slate-600 p-10 rounded-2xl"
@@ -70,6 +80,13 @@ const Login = () => {
             <span className="text-blue-600 cursor-pointer">Login</span>
           </p>
         )}
+
+        <img
+          onClick={() => setShowLogin(false)}
+          src={assets.cross_icon}
+          alt=""
+          className="absolute top-4 right-4 cursor-pointer"
+        />
       </form>
     </div>
   );

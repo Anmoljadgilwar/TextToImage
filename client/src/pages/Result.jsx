@@ -1,6 +1,8 @@
 import React from "react";
 import { assets } from "../assets/assets";
 
+import { motion } from "framer-motion";
+
 const Result = () => {
   const [image, setImage] = React.useState(assets.sample_img_1);
   const [isImageLoaded, setIsImageLoaded] = React.useState(true);
@@ -11,7 +13,11 @@ const Result = () => {
 
   return (
     <>
-      <form
+      <motion.form
+        initial={{ opacity: 0.2, y: 100 }}
+        transition={{ duration: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         action=""
         className="flex flex-col items-center justify-center min-h-[90vh] mt-8 "
       >
@@ -63,7 +69,7 @@ const Result = () => {
             </a>
           </div>
         )}
-      </form>
+      </motion.form>
     </>
   );
 };

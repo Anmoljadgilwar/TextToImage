@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [state, setState] = useState("Login");
@@ -16,7 +17,11 @@ const Login = () => {
 
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 z-10 backdrop-blur-sm flex items-center justify-center bg-black/30 ">
-      <form
+      <motion.form
+        initial={{ opacity: 0.2, y: 50 }}
+        transition={{ duration: 0.4 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         action=""
         className="relative bg-white text-slate-600 p-10 rounded-2xl"
       >
@@ -87,7 +92,7 @@ const Login = () => {
           alt=""
           className="absolute top-4 right-4 cursor-pointer"
         />
-      </form>
+      </motion.form>
     </div>
   );
 };

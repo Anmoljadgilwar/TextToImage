@@ -1,8 +1,8 @@
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 import FormData from "form-data";
 import axios from "axios";
 
-export const generateImage = async () => {
+export const generateImage = async (req, res) => {
   try {
     const { userId, prompt } = req.body;
 
@@ -50,6 +50,6 @@ export const generateImage = async () => {
     });
   } catch (error) {
     console.log(error);
-    resizeBy.json({ success: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };

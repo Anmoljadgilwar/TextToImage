@@ -26,7 +26,7 @@ export const generateImage = async (req, res) => {
     // formData.append("size", "512x512");
 
     const { data } = await axios.post(
-      "https://clipdrop-api.co/text-to-image/v1.0",
+      "https://clipdrop-api.co/text-to-image/v1",
       formData,
       {
         headers: {

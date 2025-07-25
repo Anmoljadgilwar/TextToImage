@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const AppContext = createContext();
 
@@ -9,6 +10,29 @@ const AppContextProvider = (props) => {
   const [credit, setCredit] = useState(false);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const loadCreditData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/user/credits", {
+        headers: { token },
+      });
+      if (data.success) {
+        setCredit(data.credits);
+        serUser(data.user);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    f;
+
+    return () => {
+      second;
+    };
+  }, [third]);
 
   const value = {
     user,

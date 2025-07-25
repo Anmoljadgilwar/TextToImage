@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [state, setState] = useState("Login");
@@ -13,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     try {
@@ -28,9 +29,28 @@ const Login = () => {
           setUser(data.user);
           localStorage.getItem("token", data.token);
           setShowLogin(false);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+        });
+
+        if (data.success) {
+          setToken(data.token);
+          setUser(data.user);
+          localStorage.getItem("token", data.token);
+          setShowLogin(false);
+        } else {
+          toast.error(data.message);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
   };
 
   useEffect(() => {

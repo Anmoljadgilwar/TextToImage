@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 export const AppContext = createContext();
@@ -10,6 +11,8 @@ const AppContextProvider = (props) => {
   const [credit, setCredit] = useState(0);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const navigate = useNavigate();
 
   const loadCreditData = async () => {
     try {
@@ -23,6 +26,29 @@ const AppContextProvider = (props) => {
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const generateImage = async (prompt) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api.image/generate-image",
+        { prompt },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        loadCreditData();
+        return data.resultImage;
+      } else {
+        toast.error(data.message);
+        loadCreditData();
+        if (data.creditBalance === 0) {
+          navigate("/buy");
+        }
+      }
+    } catch (error) {
       toast.error(error.message);
     }
   };

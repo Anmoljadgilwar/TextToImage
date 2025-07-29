@@ -14,14 +14,14 @@ const userAuth = async (req, res, next) => {
     const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
     if (tokenDecode.id) {
-      req.body.userId = tokenDecode.id;
+      req.userId = tokenDecode.id; // ✅ use req.userId instead of req.body.userId
+      next();
     } else {
       return res.json({
         success: false,
         message: "Please login first",
       });
     }
-    next();
   } catch (error) {
     res.json({
       success: false,

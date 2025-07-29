@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState("Login");
-  const { setShowLogin, backendUrl, setToken, setUser } =
+  const { setShowLogin, backendUrl, setToken, setUser, loadCreditData } =
     useContext(AppContext);
 
   const [name, setName] = useState("");
@@ -29,6 +29,8 @@ const Login = () => {
           setUser(data.user);
           localStorage.setItem("token", data.token);
           setShowLogin(false);
+          // Load credit data after successful login
+          setTimeout(() => loadCreditData(), 100);
         } else {
           toast.error(data.message);
         }
@@ -44,6 +46,8 @@ const Login = () => {
           setUser(data.user);
           localStorage.setItem("token", data.token);
           setShowLogin(false);
+          // Load credit data after successful registration
+          setTimeout(() => loadCreditData(), 100);
         } else {
           toast.error(data.message);
         }

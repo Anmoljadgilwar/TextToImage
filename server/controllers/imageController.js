@@ -4,26 +4,28 @@ import axios from "axios";
 
 export const generateImage = async (req, res) => {
   try {
-    const { userId, prompt } = req.body;
+    const { prompt } = req.body;
+    const userId = req.userId; // ✅ use from middleware
+
+    if (!userId || !prompt) {
+      return res.json({ success: false, message: "Missing data" });
+    }
 
     const user = await userModel.findById(userId);
-
-    if (!user || !prompt) {
+    if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
 
-    if (user.creditBalance === 0 || userModel.creditBalance < 0) {
+    if (user.creditBalance <= 0) {
       return res.json({
         success: false,
         message: "No credit balance",
-        creditBalance: user.creditBalance,
+        credit: user.creditBalance,
       });
     }
 
     const formData = new FormData();
     formData.append("prompt", prompt);
-    // formData.append("n", 1);
-    // formData.append("size", "512x512");
 
     const { data } = await axios.post(
       "https://clipdrop-api.co/text-to-image/v1",
@@ -35,21 +37,24 @@ export const generateImage = async (req, res) => {
         responseType: "arraybuffer",
       }
     );
-    const base64Image = Buffer.from(data, "binary").toString("base64");
 
+    const base64Image = Buffer.from(data, "binary").toString("base64");
     const resultImage = `data:image/png;base64,${base64Image}`;
 
-    await userModel.findByIdAndUpdate(user._id, {
-      creditBalance: user.creditBalance - 1,
-    });
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { $inc: { creditBalance: -1 } },
+      { new: true }
+    );
+
     res.json({
       success: true,
       message: "Image generated",
-      creditBalance: user.creditBalance - 1,
+      credit: updatedUser.creditBalance,
       resultImage,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.json({ success: false, message: error.message });
   }
 };

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -8,42 +8,48 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [credit, setCredit] = useState(0);
+  const [credit, setCredit] = useState(false);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl =
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 
   const navigate = useNavigate();
 
-  const loadCreditData = async () => {
+  const loadCreditData = useCallback(async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/credits", {
         headers: { token },
+        //  token: localStorage.getItem("token"),
       });
       console.log("Credit API Response:", data);
       if (data.success) {
         setCredit(data.credits);
         setUser(data.user);
+      } else {
+        console.log("Credit API failed:", data.message);
+        setCredit(0);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+      console.log("Credit API error:", error.response?.data || error.message);
+      setCredit(0);
+      toast.error(error.response?.data?.message || error.message);
     }
-  };
+  }, [token, backendUrl]);
 
   const generateImage = async (prompt) => {
     try {
       const { data } = await axios.post(
-        backendUrl + "/api.image/generate-image",
+        backendUrl + "/api/image/generate-image",
         { prompt },
         { headers: { token } }
       );
 
       if (data.success) {
-        loadCreditData();
+        await loadCreditData();
         return data.resultImage;
       } else {
         toast.error(data.message);
-        loadCreditData();
+        await loadCreditData();
         if (data.creditBalance === 0) {
           navigate("/buy");
         }
@@ -57,6 +63,7 @@ const AppContextProvider = (props) => {
     localStorage.removeItem("token");
     setToken("");
     setUser(null);
+    setCredit(null);
   };
 
   useEffect(() => {
@@ -77,6 +84,7 @@ const AppContextProvider = (props) => {
     setCredit,
     loadCreditData,
     logout,
+    generateImage,
   };
 
   return (

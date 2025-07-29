@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex mx-6">
         <div className="mr-auto">
           <Link to="/">
             <img src={assets.logo} alt="" className="w-25 sm:w-32 lg:w-40" />

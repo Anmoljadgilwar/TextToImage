@@ -100,20 +100,21 @@ const Result = () => {
   const { generateImage } = useContext(AppContext); // ✅ fixed context usage
 
   const [image, setImage] = useState(assets.sample_img_1);
-  const [isImageLoaded, setIsImageLoaded] = useState(true);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // ✅ better default
   const [input, setInput] = useState("");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
 
     setIsLoading(true);
     try {
-      const img = await generateImage(input);
-      if (img) {
-        setImage(img);
-        setIsImageLoaded(true);
+      if (input) {
+        const img = await generateImage(input);
+        if (img) {
+          setImage(img);
+          setIsImageLoaded(true);
+        }
       }
     } catch (err) {
       console.error("Image generation failed:", err);

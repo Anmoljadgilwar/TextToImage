@@ -1,11 +1,53 @@
-import { plans } from "../assets/assets";
-import { assets } from "../assets/assets";
+import { assets, plans } from "../assets/assets";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
+import { data, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const BuyCredit = () => {
-  const { user } = useContext(AppContext);
+  const { user, backendUrl, loadCreditData, token, setShowLogin } =
+    useContext(AppContext);
+
+  const navigate = useNavigate();
+
+  const initPay = async (order) => {
+    const options = {
+      key: import.meta.env.RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.INR,
+      name: "Credits Payment",
+      description: "Credits Payment",
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        console.log(response);
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  const paymentRazorpay = async (planId) => {
+    try {
+      if (!user) {
+        setShowLogin(true);
+      }
+
+      await axios.post(
+        backendUrl + "/api/user/razorpay",
+        { planId },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        initPay(data.order);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
 
   return (
     <motion.div
@@ -35,7 +77,10 @@ const BuyCredit = () => {
               <span className="text-2xl font-medium"> ${item.price}</span> /
               {item.credits} credits
             </p>
-            <button className="w-full mt-8 py-2 bg-black text-white bg-gray-800 min-w-52 rounded-md text-sm">
+            <button
+              onClick={() => paymentRazorpay(item.id)}
+              className="w-full mt-8 py-2 bg-black text-white bg-gray-800 min-w-52 rounded-md text-sm"
+            >
               {user ? "Purchase" : "Get Started"}
             </button>
           </div>

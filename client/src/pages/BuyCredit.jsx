@@ -2,8 +2,9 @@ import { assets, plans } from "../assets/assets";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BuyCredit = () => {
   const { user, backendUrl, loadCreditData, token, setShowLogin } =
@@ -13,15 +14,45 @@ const BuyCredit = () => {
 
   const initPay = async (order) => {
     const options = {
-      key: import.meta.env.RAZORPAY_KEY_ID,
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
-      currency: order.INR,
+      currency: "INR",
       name: "Credits Payment",
       description: "Credits Payment",
       order_id: order.id,
       receipt: order.receipt,
       handler: async (response) => {
-        console.log(response);
+        console.log("Payment successful:", response);
+        try {
+          // Verify payment on server
+          const { data } = await axios.post(
+            backendUrl + "/api/user/verify-payment",
+            {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            },
+            { headers: { token } }
+          );
+
+          if (data.success) {
+            toast.success("Payment successful! Credits added to your account.");
+            await loadCreditData();
+            navigate("/");
+          } else {
+            toast.error(data.message || "Payment verification failed");
+          }
+        } catch (error) {
+          toast.error("Payment verification failed");
+          console.error("Payment verification error:", error);
+        }
+      },
+      prefill: {
+        name: user?.name || "",
+        email: user?.email || "",
+      },
+      theme: {
+        color: "#000000",
       },
     };
 
@@ -33,9 +64,10 @@ const BuyCredit = () => {
     try {
       if (!user) {
         setShowLogin(true);
+        return;
       }
 
-      await axios.post(
+      const { data } = await axios.post(
         backendUrl + "/api/user/razorpay",
         { planId },
         { headers: { token } }
@@ -43,9 +75,14 @@ const BuyCredit = () => {
 
       if (data.success) {
         initPay(data.order);
+      } else {
+        toast.error(data.message || "Failed to create payment order");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+      console.error("Payment error:", error);
+      toast.error(
+        error.response?.data?.message || error.message || "Payment failed"
+      );
     }
   };
 

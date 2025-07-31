@@ -144,50 +144,40 @@ const paymentRazorpay = async (req, res) => {
   }
 };
 
-const verifyPayment = async (req, res) => {
+const verifyRazorpay = async (req, res) => {
   try {
-    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-      req.body;
+    const { razorpay_order_id } = req.body;
     const userId = req.userId;
 
-    // Verify the payment signature
-    const text = razorpay_order_id + "|" + razorpay_payment_id;
-    const crypto = await import("crypto");
-    const signature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(text)
-      .digest("hex");
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
 
-    if (signature !== razorpay_signature) {
-      return res.json({ success: false, message: "Invalid payment signature" });
+    if (orderInfo.status === "paid") {
+      const transactionData = await transactionModel.findById(
+        orderInfo.receipt
+      );
+      if (transactionData.payment) {
+        return res.json({ success: false, message: "Payment Failed" });
+      }
+      const userData = await userModel.findById(transactionData.userId);
+      const creditBalance = userData.creditBalance + transactionData.credits;
+      await userModel.findByIdAndUpdate(userData._id, { creditBalance });
+      await transactionModel.findByIdAndUpdate(transactionData._id, {
+        payment: true,
+      });
+      return res.json({ success: true, message: "Credits Added" });
+    } else {
+      res.json({ success: false, message: "Payment Failed" });
     }
-
-    // Find the transaction and update user credits
-    const transaction = await transactionModel.findOne({
-      userId,
-      _id: razorpay_order_id,
-    });
-
-    if (!transaction) {
-      return res.json({ success: false, message: "Transaction not found" });
-    }
-
-    // Update user credits
-    await userModel.findByIdAndUpdate(userId, {
-      $inc: { creditBalance: transaction.credits },
-    });
-
-    // Update transaction status
-    await transactionModel.findByIdAndUpdate(transaction._id, {
-      status: "completed",
-      paymentId: razorpay_payment_id,
-    });
-
-    res.json({ success: true, message: "Payment verified successfully" });
   } catch (error) {
-    console.log("verifyPayment :: error ", error);
+    console.log("verifyRazorpay :: error ", error);
     res.json({ success: false, message: error.message });
   }
 };
 
-export { registerUser, loginUser, userCredits, paymentRazorpay, verifyPayment };
+export {
+  registerUser,
+  loginUser,
+  userCredits,
+  paymentRazorpay,
+  verifyRazorpay,
+};

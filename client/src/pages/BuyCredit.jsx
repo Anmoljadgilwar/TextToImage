@@ -26,12 +26,8 @@ const BuyCredit = () => {
         try {
           // Verify payment on server
           const { data } = await axios.post(
-            backendUrl + "/api/user/verify-payment",
-            {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            },
+            backendUrl + "/api/user/verifyRazorpay",
+            response,
             { headers: { token } }
           );
 
@@ -46,13 +42,6 @@ const BuyCredit = () => {
           toast.error("Payment verification failed");
           console.error("Payment verification error:", error);
         }
-      },
-      prefill: {
-        name: user?.name || "",
-        email: user?.email || "",
-      },
-      theme: {
-        color: "#000000",
       },
     };
 
@@ -116,7 +105,7 @@ const BuyCredit = () => {
             </p>
             <button
               onClick={() => paymentRazorpay(item.id)}
-              className="w-full mt-8 py-2 bg-black text-white bg-gray-800 min-w-52 rounded-md text-sm"
+              className="w-full mt-8 py-2 bg-black text-white min-w-52 rounded-md text-sm"
             >
               {user ? "Purchase" : "Get Started"}
             </button>

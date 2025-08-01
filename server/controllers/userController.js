@@ -1,5 +1,5 @@
 import userModel from "../models/userModel.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import razorpay from "razorpay";
 import transactionModel from "../models/transactionModel.js";
@@ -146,8 +146,8 @@ const paymentRazorpay = async (req, res) => {
 
 const verifyRazorpay = async (req, res) => {
   try {
-    const { razorpay_order_id } = req.body;
-    const userId = req.userId;
+    const { razorpay_order_id, razorpay_payment_id } = req.body;
+    // const userId = req.userId;
 
     const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
 
@@ -162,9 +162,11 @@ const verifyRazorpay = async (req, res) => {
       const creditBalance = userData.creditBalance + transactionData.credits;
       await userModel.findByIdAndUpdate(userData._id, { creditBalance });
       await transactionModel.findByIdAndUpdate(transactionData._id, {
-        payment: true,
+        payments: true,
+        status: "completed",
+        paymentId: razorpay_payment_id,
       });
-      return res.json({ success: true, message: "Credits Added" });
+      res.json({ success: true, message: "Credits Added" });
     } else {
       res.json({ success: false, message: "Payment Failed" });
     }

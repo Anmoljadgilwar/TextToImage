@@ -12,6 +12,41 @@ const BuyCredit = () => {
 
   const navigate = useNavigate();
 
+  // const initPay = async (order) => {
+  //   const options = {
+  //     key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+  //     amount: order.amount,
+  //     currency: "INR",
+  //     name: "Credits Payment",
+  //     description: "Credits Payment",
+  //     order_id: order.id,
+  //     receipt: order.receipt,
+  //     handler: async (response) => {
+  //       try {
+  //         // Verify payment on server
+  //         const { data } = await axios.post(
+  //           backendUrl + "/api/user/verifyRazorpay",
+  //           response,
+  //           { headers: { token } }
+  //         );
+
+  //         if (data.success) {
+  //           await loadCreditData();
+  //           navigate("/");
+  //           toast.success("Payment successful! Credits added to your account.");
+  //         } else {
+  //           toast.error(data.message || "Payment verification failed");
+  //         }
+  //       } catch (error) {
+  //         toast.error("Payment verification failed");
+  //         console.error("Payment verification error:", error);
+  //       }
+  //     },
+  //   };
+
+  //   const rzp = new window.Razorpay(options);
+  //   rzp.open();
+  // };
   const initPay = async (order) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -22,19 +57,21 @@ const BuyCredit = () => {
       order_id: order.id,
       receipt: order.receipt,
       handler: async (response) => {
-        console.log("Payment successful:", response);
+        console.log("Razorpay response:", response);
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+          response;
+
         try {
-          // Verify payment on server
           const { data } = await axios.post(
             backendUrl + "/api/user/verifyRazorpay",
-            response,
+            { razorpay_payment_id, razorpay_order_id, razorpay_signature },
             { headers: { token } }
           );
 
           if (data.success) {
-            toast.success("Payment successful! Credits added to your account.");
             await loadCreditData();
             navigate("/");
+            toast.success("Payment successful! Credits added to your account.");
           } else {
             toast.error(data.message || "Payment verification failed");
           }
@@ -42,6 +79,11 @@ const BuyCredit = () => {
           toast.error("Payment verification failed");
           console.error("Payment verification error:", error);
         }
+      },
+      modal: {
+        ondismiss: () => {
+          toast.error("Payment cancelled or not completed.");
+        },
       },
     };
 
@@ -96,7 +138,8 @@ const BuyCredit = () => {
             key={index}
             className="bg-white drop-shadow-md border rounded-lg py-12 px-8 text-gray-600 hover:scale-105 transition-all duration-500"
           >
-            <img width={40} src={assets.logo_icon} alt="" />
+            <img src={assets.logo_icon} style={{ height: "40px" }} />
+
             <p className="mt-4 mb-1 font-semibold">{item.id}</p>
             <p className="text-sm">{item.desc}</p>
             <p className="mt-6">

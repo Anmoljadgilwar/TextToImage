@@ -21,7 +21,7 @@ const AppContextProvider = (props) => {
         headers: { token },
         //  token: localStorage.getItem("token"),
       });
-      console.log("Credit API Response:", data);
+
       if (data.success) {
         setCredit(data.credits);
         setUser(data.user);

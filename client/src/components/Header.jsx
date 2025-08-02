@@ -99,7 +99,7 @@ const Header = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
         >
-          generated images by Imagify
+          generated images by Quick-Visual
         </motion.p>
 
         <Steps />

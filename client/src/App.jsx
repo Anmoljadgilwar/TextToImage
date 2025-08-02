@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-teal-100 to-orange-100">
+      <div className="min-h-screen ">
         <ToastContainer position="top-right" />
         <Navbar />
 

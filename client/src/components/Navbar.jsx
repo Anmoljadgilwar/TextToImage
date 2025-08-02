@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext.jsx";
+import "../index.css";
 
 const Navbar = () => {
   const { user, setShowLogin, logout, credit } = useContext(AppContext);
@@ -10,16 +11,19 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="flex mx-6">
-        <div className="mr-auto">
+      <div className="flex px-6 py-1 bg-gradient-to-br from-pink-300 via-purple-500 to-indigo-300">
+        <div className="mr-auto flex items-center gap-2">
           <Link to="/">
-            <img src={assets.logo} alt="" className="w-25 sm:w-32 lg:w-40" />
+            <img src={assets.logo} alt="" className=" w-8 sm:w-10 lg:w-10" />
+          </Link>
+          <Link to="/">
+            <p className="name ">Quick Visuals</p>
           </Link>
         </div>
 
         <div>
           {user ? (
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="creditsbtn flex items-center gap-2 sm:gap-3 ">
               <button
                 onClick={() => navigate("/buy")}
                 className="flex items-center gap-2 sm:gap-3 bg-blue-100 px-4 sm:px-6 py-0 sm:py-3 rounded-full transition-all duration-700 hover:scale-105 "

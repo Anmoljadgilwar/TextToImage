@@ -76,9 +76,13 @@ const Login = () => {
         className="relative bg-white text-slate-600 p-10 rounded-2xl"
       >
         <h1 className="text-2xl font-semibold text-center">{state}</h1>
-        <p className="text-sm text-center">
-          Welcome back! Sign Up to your account{" "}
-        </p>
+        {state === "Login" ? (
+          <p className="text-sm text-center">
+            Welcome back! Log in to your account
+          </p>
+        ) : (
+          <p className="text-sm text-center">Sign Up to Create Your Account</p>
+        )}
 
         {state !== "Login" && (
           <div className="border flex px-2 py-2 items-center gap-1 rounded-full mt-5">

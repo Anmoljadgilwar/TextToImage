@@ -138,7 +138,7 @@ const BuyCredit = () => {
             key={index}
             className="bg-white drop-shadow-md border rounded-lg py-12 px-8 text-gray-600 hover:scale-105 transition-all duration-500"
           >
-            <img src={assets.logo_icon} style={{ height: "40px" }} />
+            <img src={assets.logo} style={{ height: "40px" }} />
 
             <p className="mt-4 mb-1 font-semibold">{item.id}</p>
             <p className="text-sm">{item.desc}</p>

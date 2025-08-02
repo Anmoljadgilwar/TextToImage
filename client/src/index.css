@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 * {
   font-family: "Outfit", sans-serif;
@@ -7,4 +8,15 @@
 .placeholder-color {
   color: #e0e0e0;
   font-weight: 300;
+}
+
+#root {
+  background: linear-gradient(90deg, #ffe7f5, #e2c9fd, #c6b7fa);
+}
+
+.name {
+  font-family: cursive;
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-style: italic;
 }

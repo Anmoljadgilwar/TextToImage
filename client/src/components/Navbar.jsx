@@ -11,13 +11,13 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="flex px-6 py-1 bg-gradient-to-br from-pink-300 via-purple-500 to-indigo-300">
+      <div className="flex px-6 py-1 bg-gradient-to-br from-pink-300 via-purple-500 to-indigo-300 text-black">
         <div className="mr-auto flex items-center gap-2">
           <Link to="/">
             <img src={assets.logo} alt="" className=" w-8 sm:w-10 lg:w-10" />
           </Link>
           <Link to="/">
-            <p className="name ">Quick Visuals</p>
+            <p className="name">Quick Visuals</p>
           </Link>
         </div>
 
@@ -26,19 +26,19 @@ const Navbar = () => {
             <div className="creditsbtn flex items-center gap-2 sm:gap-3 ">
               <button
                 onClick={() => navigate("/buy")}
-                className="flex items-center gap-2 sm:gap-3 bg-blue-100 px-4 sm:px-6 py-0 sm:py-3 rounded-full transition-all duration-700 hover:scale-105 "
+                className="flex items-center gap-2 sm:gap-3 bg-violet-300  px-4 sm:px-6 py-0 sm:py-2 rounded-full transition-all duration-700 hover:scale-105 "
               >
                 <img alt="" src={assets.credit_star} className="w-5 " />
                 <p>credit left: {credit}</p>
               </button>
-              <p className="text-gray-600 pl-4 max-sm:hidden ">
+              <p className="text-black pl-4 max-sm:hidden  ">
                 {" "}
                 Hi, {user.name}
               </p>
               <div className="relative group ">
                 <img
                   src={assets.profile_icon}
-                  className="w-10 drop-shadow"
+                  className="w-10 drop-shadow "
                   alt=""
                 />
                 <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">

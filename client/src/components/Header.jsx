@@ -6,6 +6,7 @@ import { motion, scale } from "framer-motion";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const { user, setShowLogin } = useContext(AppContext);
@@ -28,6 +29,9 @@ const Header = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
+      <div>
+        <ThemeToggle />
+      </div>
       <div className="flex flex-col justify-center items-center text-center my-20 ">
         <motion.div
           className="text-stone-500 flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500"

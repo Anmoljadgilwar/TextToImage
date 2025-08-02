@@ -3,17 +3,17 @@ import { FaRegEye, FaMagic, FaDownload } from "react-icons/fa";
 
 const Steps = () => {
   return (
-    <div className=" w-full py-12 px-4">
+    <div className=" w-full py-12 px-4  text-black dark:text-white">
       {/* How it works Section */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-2">How it works</h2>
-        <p className="text-gray-500 text-base md:text-lg">
+        <p className=" text-base md:text-lg">
           Transform Words Into Stunning Images
         </p>
       </div>
       <div className="max-w-2xl mx-auto space-y-6 mb-16">
         {/* Step 1 */}
-        <div className="flex items-start bg-white rounded-xl shadow-sm p-6">
+        <div className="flex items-start bg-white  dark:bg-gray-500 rounded-xl shadow-sm p-6">
           <span className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 mr-4 text-indigo-700 text-2xl">
             <FaRegEye />
           </span>
@@ -21,35 +21,35 @@ const Steps = () => {
             <div className="font-semibold text-lg mb-1">
               Describe Your Vision
             </div>
-            <div className="text-gray-500 text-base">
+            <div className="text-gray-800 text-base">
               “Type a phrase, sentence, or paragraph that describes the image
               you want to create.”
             </div>
           </div>
         </div>
         {/* Step 2 */}
-        <div className="flex items-start bg-white rounded-xl shadow-sm p-6">
+        <div className="flex items-start bg-white  dark:bg-gray-500 rounded-xl shadow-sm p-6">
           <span className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 mr-4 text-indigo-700 text-2xl">
             <FaMagic />
           </span>
           <div>
             <div className="font-semibold text-lg mb-1">Watch the Magic</div>
-            <div className="text-gray-500 text-base">
+            <div className="text-gray-800 text-base">
               “Our AI-powered engine will transform your text into a
               high-quality, unique image in seconds.”
             </div>
           </div>
         </div>
         {/* Step 3 */}
-        <div className="flex items-start bg-white rounded-xl shadow-sm p-6">
+        <div className="flex items-start bg-white  dark:bg-gray-500 rounded-xl shadow-sm p-6">
           <span className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 mr-4 text-indigo-700 text-2xl">
             <FaDownload />
           </span>
           <div>
             <div className="font-semibold text-lg mb-1">Download & Share</div>
-            <div className="text-gray-500 text-base">
-              “Instantly download your creation or share it with the world
-              directly from our platform.”
+            <div className="text-gray-800 text-base">
+              “You can see your creation and download it or share it with the
+              world.”
             </div>
           </div>
         </div>
@@ -77,18 +77,18 @@ const Steps = () => {
         </div>
 
         {/* Text Section */}
-        <div className="flex-1 text-center md:text-left">
-          <h3 className="text-xl md:text-2xl font-semibold mb-3 text-gray-800">
+        <div className="flex-1 text-center md:text-left  text-black dark:text-white">
+          <h3 className="text-xl md:text-2xl font-semibold mb-3">
             Introducing the AI-Powered Text to Image Generator
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-700  dark:text-white mb-4">
             Easily bring your ideas to life with our free AI image generator.
             Whether you need stunning visuals or unique imagery, our tool
             transforms your text into eye-catching images with just a few
             clicks. Imagine it, describe it, and watch it come to life
             instantly.
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-700  dark:text-white">
             Simply type in a text prompt, and our cutting-edge AI will generate
             high-quality images in seconds. From product visuals to character
             designs and portraits, even concepts that don’t yet exist can be

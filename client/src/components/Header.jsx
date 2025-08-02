@@ -34,7 +34,7 @@ const Header = () => {
       </div>
       <div className="flex flex-col justify-center items-center text-center my-20 ">
         <motion.div
-          className="text-stone-500 flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500"
+          className="text-stone-600 flex text-center gap-2 bg-white px-6 py-1 rounded-full border border-neutral-500"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}

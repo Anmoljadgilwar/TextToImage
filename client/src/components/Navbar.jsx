@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <>
       <div className="flex px-6 py-1 bg-gradient-to-br from-pink-300 via-purple-500 to-indigo-300 text-black">
-        <div className="mr-auto flex items-center gap-2">
+        <div className="mr-auto flex items-center gap-2 bg-gradient-to-br from-violet-200 via-purple-500 to-indigo-300 px-2 rounded-3xl">
           <Link to="/">
             <img src={assets.logo} alt="" className=" w-8 sm:w-10 lg:w-10" />
           </Link>

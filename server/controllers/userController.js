@@ -58,7 +58,7 @@ const loginUser = async (req, res) => {
 
 const userCredits = async (req, res) => {
   try {
-    const userId = req.userId; // ✅ from middleware
+    const userId = req.userId; //  from middleware
 
     const user = await userModel.findById(userId);
     if (!user) {

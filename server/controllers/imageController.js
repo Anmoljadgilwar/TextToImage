@@ -5,7 +5,7 @@ import axios from "axios";
 export const generateImage = async (req, res) => {
   try {
     const { prompt } = req.body;
-    const userId = req.userId; // ✅ use from middleware
+    const userId = req.userId; //  use from middleware
 
     if (!userId || !prompt) {
       return res.json({ success: false, message: "Missing data" });

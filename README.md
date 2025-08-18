@@ -76,3 +76,7 @@ A full-stack application that generates images from text prompts using AI.
 - Fixed server-side credit loading logic
 - Added proper error handling for credit API calls
 - Improved user experience with loading states
+
+### Get Started
+
+Visit [Quick-Visuals](https://quick-visual.netlify.app/)

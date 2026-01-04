@@ -15,6 +15,10 @@ const AppContextProvider = (props) => {
 
   const navigate = useNavigate();
 
+  //   Calls the backend GET /api/user/credits
+  // Sends token in headers for authentication
+  // If success → update credit and user state
+  // If failure → set credit to 0 and show error
   const loadCreditData = useCallback(async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/credits", {

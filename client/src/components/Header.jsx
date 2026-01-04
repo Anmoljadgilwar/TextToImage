@@ -39,7 +39,7 @@ const Header = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <p>Best AI Tool for your Image Genaration</p>
+          <p>AI Tool for your fast Image Genaration</p>
           <img src={assets.star_icon} alt="" />
         </motion.div>
 

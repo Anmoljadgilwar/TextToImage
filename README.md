@@ -70,13 +70,6 @@ A full-stack application that generates images from text prompts using AI.
 - Credits are displayed in the navbar
 - Users are redirected to buy page when credits run out
 
-## Fixed Issues
-
-- Credit balance now properly updates in the navbar
-- Fixed server-side credit loading logic
-- Added proper error handling for credit API calls
-- Improved user experience with loading states
-
 ### Get Started
 
 Visit [Quick-Visuals](https://quick-visual.netlify.app/)

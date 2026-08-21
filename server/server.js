@@ -8,10 +8,11 @@ import imageRouter from "./routes/imageRoutes.js";
 const PORT = process.env.PORT || 4000;
 const app = express();
 
+//middlewares
 app.use(express.json());
 app.use(cors());
 await connectDB();
-
+//routes
 app.use("/api/user", userRouter);
 app.use("/api/image", imageRouter);
 app.get("/", (req, res) => res.send("API Working"));
